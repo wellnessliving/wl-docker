@@ -1,0 +1,14 @@
+# Ignore everything:
+*
+
+# Except for the directories:
+
+!.gitignore
+!docker
+!docker/*
+!docker/apache/*
+!docker/mysql/*
+!docker/mysql/conf.d/*
+!docker/php/*
+!docker-compose.yml
+!Dockerfile
