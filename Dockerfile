@@ -49,6 +49,5 @@ RUN docker-php-ext-install \
     zip \
     xml
 
-# Clean repository
-RUN apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+# Install NodeJs and lessc
+RUN apt-get install -y nodejs npm && npm install less@3.9.0 -g
