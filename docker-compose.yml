@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  db:
+    platform: linux/x86_64
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./docker/mysql/conf.d:/etc/mysql/conf.d
+      - ./docker/mysql/init-db.sql:/script/init-db.sql
+    command: "--init-file /script/init-db.sql"
+    environment:
+      MYSQL_ROOT_PASSWORD: lkchpy91
+      MYSQL_DATABASE: koins_root
+      MYSQL_USER: koins_root
+      MYSQL_PASSWORD: lkchpy91
+
+  wl:
+    depends_on:
+      - db
+    build: .
+    volumes:
+      - ./wl.trunk:/var/www/html/wl.trunk
+      - ./wl.stable:/var/www/html/wl.stable
+      - ./wl.production:/var/www/html/wl.production
+      - ./studio.trunk:/var/www/html/studio.trunk
+      - ./docker/init.sh:/usr/local/bin/app-init.sh
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+    ports:
+      - "80:80"
+    extra_hosts:
+      - host.docker.local:host-gateway
+    # environment:
+      # XDEBUG_MODE: debug
+#      XDEBUG_CONFIG: start_with_request=yes client_host=host.docker.internal client_port=9000
+      # XDEBUG_CONFIG: client_host=host.docker.internal # на винде и маке все ок, на линуксе возможно надо ставить локальный ip.
+    command:
+      - app-init.sh
+volumes:
+  db_data: {}
