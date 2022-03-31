@@ -26,6 +26,7 @@ services:
       - ./wl.stable:/var/www/html/wl.stable
       - ./wl.production:/var/www/html/wl.production
       - ./studio.trunk:/var/www/html/studio.trunk
+      - ./wl-sdk:/var/www/html/wl-sdk
       - ./docker/init.sh:/usr/local/bin/app-init.sh
       - ./docker/php/php.ini:/usr/local/etc/php/php.ini
     ports:
