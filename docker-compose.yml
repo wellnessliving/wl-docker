@@ -27,7 +27,6 @@ services:
       - ./wl.production:/var/www/html/wl.production:delegated
       - ./studio.trunk:/var/www/html/studio.trunk:delegated
       - ./wl-sdk:/var/www/html/wl-sdk
-      - ./docker/init.sh:/usr/local/bin/app-init.sh
       - ./docker/php/php.ini:/usr/local/etc/php/php.ini
     ports:
       - "80:80"
