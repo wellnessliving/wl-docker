@@ -22,10 +22,10 @@ services:
       - db
     build: .
     volumes:
-      - ./wl.trunk:/var/www/html/wl.trunk
-      - ./wl.stable:/var/www/html/wl.stable
-      - ./wl.production:/var/www/html/wl.production
-      - ./studio.trunk:/var/www/html/studio.trunk
+      - ./wl.trunk:/var/www/html/wl.trunk:delegated
+      - ./wl.stable:/var/www/html/wl.stable:delegated
+      - ./wl.production:/var/www/html/wl.production:delegated
+      - ./studio.trunk:/var/www/html/studio.trunk:delegated
       - ./wl-sdk:/var/www/html/wl-sdk
       - ./docker/init.sh:/usr/local/bin/app-init.sh
       - ./docker/php/php.ini:/usr/local/etc/php/php.ini
@@ -33,11 +33,5 @@ services:
       - "80:80"
     extra_hosts:
       - host.docker.local:host-gateway
-    # environment:
-      # XDEBUG_MODE: debug
-#      XDEBUG_CONFIG: start_with_request=yes client_host=host.docker.internal client_port=9000
-      # XDEBUG_CONFIG: client_host=host.docker.internal # на винде и маке все ок, на линуксе возможно надо ставить локальный ip.
-    command:
-      - app-init.sh
 volumes:
   db_data: {}
