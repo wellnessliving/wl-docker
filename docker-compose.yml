@@ -22,10 +22,10 @@ services:
       - db
     build: .
     volumes:
-      - ./wl.trunk:/var/www/html/wl.trunk
-      - ./wl.stable:/var/www/html/wl.stable
-      - ./wl.production:/var/www/html/wl.production
-      - ./studio.trunk:/var/www/html/studio.trunk
+      - ./wl.trunk:/var/www/html/wl.trunk:delegated
+      - ./wl.stable:/var/www/html/wl.stable:delegated
+      - ./wl.production:/var/www/html/wl.production:delegated
+      - ./studio.trunk:/var/www/html/studio.trunk:delegated
       - ./wl-sdk:/var/www/html/wl-sdk
       - ./docker/php/php.ini:/usr/local/etc/php/php.ini
     ports:
