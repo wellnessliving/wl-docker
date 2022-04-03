@@ -1,8 +1,6 @@
 #FROM php:8.0-apache
 FROM php:8.0-apache-buster
 
-COPY docker/apache/ /etc/apache2/sites-enabled/
-
 RUN a2enmod rewrite
 
 # Install PHP extensions deps
