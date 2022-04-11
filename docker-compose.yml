@@ -22,6 +22,7 @@ services:
       - db
     build: .
     volumes:
+      - ./docker/apache/:/etc/apache2/sites-enabled/
       - ./wl.trunk:/var/www/html/wl.trunk:delegated
       - ./wl.stable:/var/www/html/wl.stable:delegated
       - ./wl.production:/var/www/html/wl.production:delegated
