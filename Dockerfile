@@ -49,3 +49,9 @@ RUN docker-php-ext-install \
 
 # Install NodeJs and lessc
 RUN apt-get install -y nodejs npm && npm install less@3.9.0 -g
+
+RUN mkdir -p /cache/wl.trunk && \
+    mkdir -p /cache/wl.stable && \
+    mkdir -p /cache/studio.trunk && \
+    mkdir -p /cache/wl.production && \
+    chmod -R 777 /cache
