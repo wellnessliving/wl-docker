@@ -45,7 +45,9 @@ RUN docker-php-ext-install \
     soap \
     tidy \
     zip \
-    xml
+    xml \
+    exif \
+    calendar
 
 # Install NodeJs and lessc
 RUN apt-get install -y nodejs npm && npm install less@3.9.0 -g
