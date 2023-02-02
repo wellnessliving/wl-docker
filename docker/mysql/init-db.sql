@@ -1,5 +1,5 @@
 create user if not exists 'koins'@'%' identified with mysql_native_password by 'lkchpy91';
-grant alter,create,delete,drop,index,insert,lock tables,references,select,update,trigger,create temporary tables on *.* to 'koins'@'%';
+grant alter,create,delete,drop,index,insert,lock tables,references,select,update,trigger,create temporary tables,alter routine,create routine,execute on *.* to 'koins'@'%';
 
 create user if not exists 'koins_read'@'%' identified with mysql_native_password by 'lkchpy91';
 grant select on *.* to 'koins_read'@'%';
