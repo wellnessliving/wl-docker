@@ -25,11 +25,13 @@ RUN pecl install sync && \
     pecl install xdebug-3.0.3 && \
     pecl install apcu && \
     pecl install memcached && \
+    pecl install yac && \
     docker-php-ext-enable \
       sync \
       xdebug \
       apcu \
       memcached \
+      yac \
       opcache
 
 # Configure GD extension
