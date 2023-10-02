@@ -22,7 +22,7 @@ RUN apt-get update && \
 
 # Install PHP extension from pecl and enabled it.
 RUN pecl install sync && \
-    pecl install xdebug-3.0.3 && \
+    pecl install xdebug-3.2.2 && \
     pecl install apcu && \
     pecl install memcached && \
     pecl install yac && \
