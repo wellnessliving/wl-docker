@@ -1,5 +1,5 @@
-#FROM php:8.0-apache
-FROM php:8.0-apache-buster
+#FROM php:8.2-apache
+FROM php:8.2-apache-buster
 
 RUN a2enmod rewrite
 
