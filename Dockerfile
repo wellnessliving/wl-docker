@@ -59,3 +59,10 @@ RUN mkdir -p /cache/wl.trunk && \
     mkdir -p /cache/studio.trunk && \
     mkdir -p /cache/wl.production && \
     chmod -R 777 /cache
+
+# The lines below are making the local user on the host machine to be the same as the apache2 user inside the container.
+# This can cause issues on non-ubuntu machines and those that have UID and GID different from 1000:1000.
+# Yet it can be very useful for local development. Uncomment these lines with proper UID:GID settings for your machine,
+# if experiencing issues with file permissions.
+RUN sed -i 's/www-data:x:33:33/www-data:x:1000:1000/' /etc/passwd
+RUN sed -i 's/www-data:x:33:/www-data:x:1000:/' /etc/group
