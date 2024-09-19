@@ -1,26 +1,28 @@
-version: "3.9"
-
 services:
   memcached:
     platform: linux/x86_64
     image: memcached:1.5.6
     ports:
-      - "11211:11211"
+      - "11212:11211"
+    networks:
+      - web-php-wl
   db:
     platform: linux/x86_64
     image: mysql:8.0
     ports:
-      - "3306:3306"
+      - "33066:3306"
     volumes:
       - db_data:/var/lib/mysql
       - ./docker/mysql/conf.d:/etc/mysql/conf.d
       - ./docker/mysql/init-db.sql:/script/init-db.sql
     command: "--init-file /script/init-db.sql"
     environment:
-      MYSQL_ROOT_PASSWORD: lkchpy91
-      MYSQL_DATABASE: koins_root
-      MYSQL_USER: koins_root
-      MYSQL_PASSWORD: lkchpy91
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - web-php-wl
 
   wl:
     depends_on:
@@ -28,16 +30,23 @@ services:
     build: .
     volumes:
       - ./docker/apache/:/etc/apache2/sites-enabled/
-      - ./wl.trunk:/var/www/html/wl.trunk:delegated
-      - ./wl.stable:/var/www/html/wl.stable:delegated
-      - ./wl.production:/var/www/html/wl.production:delegated
-      - ./studio.trunk:/var/www/html/studio.trunk:delegated
-      - ./shared:/var/www/html/shared:delegated
-      - ./wl-sdk:/var/www/html/wl-sdk
+      - ../wl.trunk:/var/www/html/wl.trunk:delegated
+      - ../wl.stable:/var/www/html/wl.stable:delegated
+      - ../wl.production:/var/www/html/wl.production:delegated
+      - ../studio.trunk:/var/www/html/studio.trunk:delegated
+      - ../shared:/var/www/html/shared:delegated
+      - ../wl-sdk:/var/www/html/wl-sdk
       - ./docker/php/php.ini:/usr/local/etc/php/php.ini
     ports:
       - "80:80"
     extra_hosts:
       - host.docker.local:host-gateway
+    networks:
+      - web-php-wl
+
 volumes:
   db_data: {}
+
+networks:
+  web-php-wl:
+    driver: bridge
