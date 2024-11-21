@@ -18,7 +18,8 @@ RUN apt-get update && \
         libmemcached-dev \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
-        libgd-dev
+        libgd-dev \
+        subversion
 
 # Install PHP extension from pecl and enabled it.
 RUN pecl install sync && \
