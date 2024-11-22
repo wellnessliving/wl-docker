@@ -12,3 +12,4 @@
 !docker/php/*
 !docker-compose.yml
 !Dockerfile
+.evn
