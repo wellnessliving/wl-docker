@@ -18,7 +18,10 @@ RUN apt-get update && \
         libmemcached-dev \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
-        libgd-dev
+        libgd-dev \
+        subversion \
+        sudo \
+        mc
 
 # Install PHP extension from pecl and enabled it.
 RUN pecl install sync && \
@@ -60,9 +63,23 @@ RUN mkdir -p /cache/wl.trunk && \
     mkdir -p /cache/wl.production && \
     chmod -R 777 /cache
 
+# Copy libs.* from the host machine to the container
+COPY .ssh/libs.pub /var/www/.ssh/libs.pub
+
+# Copy .subversion from the host machine to the container
+COPY .subversion /var/www/.subversion
+
+
 # The lines below are making the local user on the host machine to be the same as the apache2 user inside the container.
 # This can cause issues on non-ubuntu machines and those that have UID and GID different from 1000:1000.
 # Yet it can be very useful for local development. Uncomment these lines with proper UID:GID settings for your machine,
 # if experiencing issues with file permissions.
 RUN sed -i 's/www-data:x:33:33/www-data:x:1000:1000/' /etc/passwd
 RUN sed -i 's/www-data:x:33:/www-data:x:1000:/' /etc/group
+
+# Set permissions for .ssh and .subversion
+RUN chmod 700 /var/www/.ssh && \
+    chmod -R 600 /var/www/.ssh/* && \
+    chmod -R 600 /var/www/.subversion && \
+    chown -R www-data:www-data /var/www/.ssh && \
+    chown -R www-data:www-data /var/www/.subversion
